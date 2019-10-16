@@ -8,13 +8,6 @@ C ===================================================================
 C     Initialize LAYERS variables that are kept fixed during the run.
 C ===================================================================
 
-      IMPLICIT NONE
-#include "EEPARAMS.h"
-#include "SIZE.h"
-#include "PARAMS.h"
-#include "GRID.h"
-#include "LAYERS_SIZE.h"
-#include "LAYERS.h"
 
 C  INPUT/OUTPUT PARAMETERS:
 C     myThid ::  my Thread Id number
@@ -35,11 +28,7 @@ C     msgBuf    :: Informational/error message buffer
       _RL     ZZc(FineGridMax)
 
       CHARACTER*11   tmpName      
-      CHARACTER*(MAX_LEN_MBUF) msgBuf
 
-C     Functions ::
-      INTEGER     ILNBLNK
-      EXTERNAL    ILNBLNK
       
 #ifdef ALLOW_MNC
 #ifdef LAYERS_MNC
