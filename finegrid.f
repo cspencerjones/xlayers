@@ -1,6 +1,6 @@
 C FILE: FINEGRID.F
       SUBROUTINE FINEGRID(dRf,drC,dRfsize,FineGridFact,dZZf,
-     &                    MapIndex,MapFact)
+     &                    MapIndex,MapFact,CellIndex)
 C     
 C     CALCULATE THE NEW GRID
 C
@@ -13,12 +13,15 @@ C
       REAL*4 ZZc(dRfsize*FineGridFact)
       REAL*4 ZZf(dRfsize*FineGridFact+1)
       INTEGER MapIndex(dRfsize*FineGridFact)
+      INTEGER CellIndex(dRfsize*FineGridFact)
       REAL*4 MapFact(dRfsize*FineGridFact)
       INTEGER NZZ
 Cf2py intent(in) dRf,dRfsize,FineGridFact
 Cf2py intent(out) dZZf, MapIndex,MapFact
+Cf2py intent(out) CellIndex
 Cf2py depend(dRfsize*FineGridFact) dZZf
 Cf2py depend(dRfsize*FineGridFact) MapFact
+Cf2py depend(dRfsize*FineGridFact) CellIndex
       kkinit = 1.
       Nr=dRfsize
       DO k=1,Nr
@@ -77,6 +80,11 @@ C     &     'S/R LAYERS_INIT_FIXED: kk=', kk, ', k=', k,
 C     &     ', ZZc(kk)=', ZZc(kk),' , Zc(k)=',Zc(k)
 C          CALL PRINT_ERROR( msgBuf, myThid )
 C          STOP 'ABNORMAL END: S/R LAYERS_INIT_FIXED'
+        ENDIF
+        IF ( ZZc(kk).LT.Zf(MapIndex(kk)+1) ) THEN
+          CellIndex(kk) = MapIndex(kk)
+        ELSE
+          CellIndex(kk) = MapIndex(kk)+1
         ENDIF
       ENDDO
 
