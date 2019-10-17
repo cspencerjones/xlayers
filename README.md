@@ -5,4 +5,4 @@ conda install -c conda-forge fortran-compiler
 unset LDFLAGS
 
 Then to compile a fortran file:
-f2py -c ftype.f -m ftype
+python -m numpy.f2py -c -m finegrid finegrid.f
