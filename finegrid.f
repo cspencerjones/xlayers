@@ -1,5 +1,6 @@
 C FILE: FINEGRID.F
-      SUBROUTINE FINEGRID(dRf,drC,dRfsize,FineGridFact,dZZf,MapFact)
+      SUBROUTINE FINEGRID(dRf,drC,dRfsize,FineGridFact,dZZf,
+     &                    MapIndex,MapFact)
 C     
 C     CALCULATE THE NEW GRID
 C
@@ -15,7 +16,7 @@ C
       REAL*4 MapFact(dRfsize*FineGridFact)
       INTEGER NZZ
 Cf2py intent(in) dRf,dRfsize,FineGridFact
-Cf2py intent(out) dZZf, MapFact
+Cf2py intent(out) dZZf, MapIndex,MapFact
 Cf2py depend(dRfsize*FineGridFact) dZZf
 Cf2py depend(dRfsize*FineGridFact) MapFact
       kkinit = 1.
