@@ -1,4 +1,6 @@
 C FILE: LAYERS.F
+
+
       SUBROUTINE LAYERS_LOCATE(xx,Nlayers,m,x,k)
 
       INTEGER   Nlayers
@@ -100,7 +102,5 @@ C       NEED TO ADD TOPOGRAPHY HERE
         ENDDO
 
       END SUBROUTINE
-      
-     
 
 C END FILE LAYERS.F

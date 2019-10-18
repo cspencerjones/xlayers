@@ -6,3 +6,4 @@ unset LDFLAGS
 
 Then to compile a fortran file:
 python -m numpy.f2py -c -m finegrid finegrid.f
+python -m numpy.f2py -c -m layers looplayers.f layers.f
