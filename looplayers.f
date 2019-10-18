@@ -6,10 +6,10 @@ C FILE: LOOPLAYERS.F
      
       INTEGER NZ,Nlayers,NZZ,Ni
       REAL*4 layers_bounds(Nlayers)
-      REAL*4 Vel(NZ,Ni)
-      REAL*4 tracer(NZ,Ni)
+      REAL*4 Vel(Ni,NZ)
+      REAL*4 tracer(Ni,NZ)
       REAL*4 VH(Nlayers)
-      REAL*4 VHout(Nlayers,Ni)
+      REAL*4 VHout(Ni,Nlayers)
       REAL*4 MapFact(NZZ)
       INTEGER MapIndex(NZZ)
       INTEGER CellIndex(NZZ)
@@ -24,12 +24,12 @@ Cf2py intent(out) VHout
 Cf2py external :: layers_1
 Cf2py depend(Nlayers) VH
       DO i=1,Ni
-         CALL LAYERS_1(Vel(:,i),tracer(:,i),layers_bounds,
+         CALL LAYERS_1(Vel(i,:),tracer(i,:),layers_bounds,
      &          MapFact,MapIndex,
      &          CellIndex,dZZf,
      &          NZ,Nlayers,NZZ,VH)
       DO kk=1,Nlayers
-          VHout(kk,i)=VH(kk)
+          VHout(i,kk)=VH(kk)
       ENDDO
       ENDDO
       
