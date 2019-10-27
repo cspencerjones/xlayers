@@ -1,0 +1,2 @@
+include versioneer.py
+include xlayers/_version.py
