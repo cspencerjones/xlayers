@@ -1,13 +1,23 @@
-In order to compile f2py
+xlayers: Python implementation of MITgcm's layer package
+========================================================
 
-On Pangeo, first install fortran:
+xlayers requires the fortran-compiler package. Installing via `conda`_ is the easiest way::
 
-conda install -c conda-forge fortran-compiler
+    conda install -c conda-forge fortran-compiler
+    unset LDFLAGS
 
-unset LDFLAGS
+.. _conda: https://conda-forge.org/
 
-Then to compile a fortran file:
+To install xlayers from Github::
 
-python -m numpy.f2py -c -m finegrid finegrid.f
+    git clone https://github.com/cspencerjones/xlayers.git
+    cd xlayers
+    python setup.py install
 
-python -m numpy.f2py -c -m layers looplayers.f layers.f
+
+Get in touch
+------------
+
+- Report bugs, suggest features or view the source code `on GitHub`_.
+
+.. _on GitHub: https://github.com/cspencerjones/xlayers.git
