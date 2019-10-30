@@ -24,7 +24,7 @@ CLASSIFIERS = [
     'Topic :: Scientific/Engineering',
 ]
 
-INSTALL_REQUIRES = ['xarray>=0.12.0', 'dask', 'numpy>=1.16']
+INSTALL_REQUIRES = ['xarray>=0.13.0', 'dask', 'numpy>=1.16']
 PYTHON_REQUIRES = '>=3.6'
 
 
