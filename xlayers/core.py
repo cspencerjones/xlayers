@@ -35,6 +35,18 @@ def layers_numpy(v_in, theta_in, thetalayers, mapfact, mapindex, cellindex, drf_
     original_shape = v_in.shape
 
     v_out,theta_out = _reshape_inputs(v_in,theta_in)
+    
+    if np.all(thetalayers[1:] >= thetalayers[:-1], axis=0):
+        if np.any(np.less(theta_out[:,1:], theta_out[:,:-1], 
+                          where=(~np.isnan(theta_out[:,:-1]) & ~np.isnan(theta_out[:,1:])))):
+            print("Warning: theta_in may not be monotonically ascending/descending")
+    elif np.all(thetalayers[1:] <= thetalayers[:-1], axis=0):
+        if np.any(np.greater(theta_out[:,1:], theta_out[:,:-1], 
+                          where=(~np.isnan(theta_out[:,:-1]) & ~np.isnan(theta_out[:,1:])))):
+            print("Warning: theta_in may not be monotonically ascending/descending")
+    else:
+        raise ValueError("thetalayers is not monotonic")
+    
     VH2 = layers.loop_layers(v_out, theta_out, thetalayers,
                             mapfact, mapindex, cellindex, drf_finer)
     new_shape = list(original_shape)
