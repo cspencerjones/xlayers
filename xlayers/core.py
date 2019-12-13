@@ -23,7 +23,7 @@ def _reshape_inputs(*args):
     return args_2d
 
 
-def _reshape_outputs(*args, shape=None):
+def _reshape_outputs(*args, shape = None):
     if len(shape) == 1:
         target_shape = (1,)
     else:

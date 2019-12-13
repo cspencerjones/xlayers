@@ -3,4 +3,4 @@ __version__ = get_versions()['version']
 del get_versions
 
 __all__ = ['core']
-from .core import *
+from .core import layers_numpy
