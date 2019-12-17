@@ -31,7 +31,7 @@ jobs:
         #   TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
         run: |
           echo "$RUNNER_OS"
-          PLAT = `echo "$RUNNER_OS" | awk '{ print tolower($1) }'`
+          PLAT=`echo "$RUNNER_OS" | awk '{ print tolower($1) }'`
           echo $PLAT
           python setup.py sdist -d wheelhouse
           cibuildwheel --platform $PLAT --output-dir wheelhouse
