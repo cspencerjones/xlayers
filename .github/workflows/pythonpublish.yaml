@@ -28,5 +28,8 @@ jobs:
       run: |
         python setup.py sdist -d wheelhouse
         cibuildwheel --platform linux --output-dir wheelhouse
+    - name: List wheels 
+      run: |
+        ls -ltrh wheelhouse
         # python setup.py sdist bdist_wheel
         # twine upload dist/*
