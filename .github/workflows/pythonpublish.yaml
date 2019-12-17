@@ -26,13 +26,14 @@ jobs:
         env:
           CIBW_BEFORE_BUILD: "pip install -U numpy"
           CIBW_SKIP: "cp27-* cp34-*"
-          RUNNER_CONTEXT: ${{ toJson(runner) }}
+          RUNNER_OS: ${{ runner.os }}
         #   TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
         #   TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
         run: |
-          echo "$RUNNER_CONTEXT"
+          echo "$RUNNER_OS"
+          echo "$RUNNER_OS" | awk '{ print tolower($1) }'
           python setup.py sdist -d wheelhouse
-          cibuildwheel --platform linux --output-dir wheelhouse
+          cibuildwheel --platform echo "$RUNNER_OS" | awk '{ print tolower($1) }' --output-dir wheelhouse
       - name: List wheels 
         run: |
           ls -ltrh wheelhouse
