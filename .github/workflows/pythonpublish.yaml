@@ -47,11 +47,12 @@ jobs:
           python-version: '3.x'
       - name: Install dependencies
         run: |
+          brew install gcc
           python -m pip install --upgrade pip
           python -m pip install setuptools setuptools-scm numpy cibuildwheel wheel twine
       - name: Build and publish
         env:
-          CIBW_BEFORE_BUILD: "sudo port install gcc6 +gfortran && pip install -U numpy"
+          CIBW_BEFORE_BUILD: "pip install -U numpy"
           CIBW_SKIP: "cp27-* cp34-*"
          
         #   TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
