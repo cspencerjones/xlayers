@@ -26,14 +26,14 @@ jobs:
         run: |
           # PLAT=`echo "$RUNNER_OS" | awk '{ print tolower($1) }'`
           # echo $PLAT
-          python setup.py sdist -d $GITHUB_WORKSPACE/wheelhouseLinux
-          python -m cibuildwheel --platform linux --output-dir $GITHUB_WORKSPACE/wheelhouseLinux
+          python setup.py sdist -d wheelhouseLinux
+          python -m cibuildwheel --platform linux --output-dir wheelhouseLinux
 
       - name: Archive wheels 
         uses: actions/upload-artifact@v1
         with:
           name: wheelhouseLinux
-          path: $GITHUB_WORKSPACE/wheelhouseLinux
+          path: wheelhouseLinux
     
   
   deploy-macos:
@@ -54,13 +54,13 @@ jobs:
           CIBW_BEFORE_BUILD: "pip install -U numpy"
           CIBW_SKIP: "cp27-* cp34-* cp35-*"
         run: |
-          python -m cibuildwheel --platform macos --output-dir $GITHUB_WORKSPACE/wheelhouseMacOS
+          python -m cibuildwheel --platform macos --output-dir wheelhouseMacOS
 
       - name: Archive wheels 
         uses: actions/upload-artifact@v1
         with:
           name: wheelhouseMacOS
-          path: $GITHUB_WORKSPACE/wheelhouseMacOS
+          path: wheelhouseMacOS
   deploy:
     needs: [deploy-linux, deploy-macos]
     runs-on: ubuntu-latest
@@ -89,6 +89,5 @@ jobs:
         #   TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
         #   TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
         run: |
-          cd $GITHUB_WORKSPACE
           ls -ltrh wheelhouseMacOS/ wheelhouseLinux/
           # twine upload dist/*
