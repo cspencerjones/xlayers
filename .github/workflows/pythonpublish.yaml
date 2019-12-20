@@ -22,8 +22,6 @@ jobs:
           CIBW_BEFORE_BUILD: "pip install -U numpy"
           CIBW_SKIP: "cp27-* cp34-* cp35-*"
         run: |
-          # PLAT=`echo "$RUNNER_OS" | awk '{ print tolower($1) }'`
-          # echo $PLAT
           python setup.py sdist -d wheelhouseLinux
           python -m cibuildwheel --platform linux --output-dir wheelhouseLinux
 
