@@ -23,20 +23,13 @@ jobs:
         env:
           CIBW_BEFORE_BUILD: "pip install -U numpy"
           CIBW_SKIP: "cp27-* cp34-* cp35-*"
-        #   TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
-        #   TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
         run: |
           # PLAT=`echo "$RUNNER_OS" | awk '{ print tolower($1) }'`
           # echo $PLAT
-          python setup.py sdist -d wheelhouse
-          python -m cibuildwheel --platform linux --output-dir wheelhouse
-      - name: List wheels 
-        run: |
-          ls -ltrh wheelhouse
-          # python setup.py sdist bdist_wheel
-          # twine upload dist/*
-
-
+          python setup.py sdist -d $GITHUB_WORKSPACE/wheelhouseLinux
+          python -m cibuildwheel --platform linux --output-dir $GITHUB_WORKSPACE/wheelhouseLinux
+    
+  
   deploy-macos:
     runs-on: macos-latest
     steps:
@@ -54,19 +47,10 @@ jobs:
         env:
           CIBW_BEFORE_BUILD: "pip install -U numpy"
           CIBW_SKIP: "cp27-* cp34-* cp35-*"
-         
-        #   TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
-        #   TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
         run: |
-          python setup.py sdist -d wheelhouse
-          python -m cibuildwheel --platform macos --output-dir wheelhouse
-      - name: List wheels 
-        run: |
-          ls -ltrh wheelhouse
-          # python setup.py sdist bdist_wheel
-          # twine upload dist/*
+          python -m cibuildwheel --platform macos --output-dir $GITHUB_WORKSPACE/wheelhouseMacOS
 
-  
+
   # deploy-windows:
   #   runs-on: macos-latest
   #   steps:
@@ -94,3 +78,25 @@ jobs:
   #         ls -ltrh wheelhouse
   #         # python setup.py sdist bdist_wheel
   #         # twine upload dist/*
+ 
+  deploy:
+    needs: [deploy-linux, deploy-macos]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Set up Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: '3.x'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip twine 
+      
+      - name: Publish 
+        # env:
+        #   TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
+        #   TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+        run: |
+          cd $GITHUB_WORKSPACE
+          ls -ltrh wheelhouseMacOS/ wheelhouseLinux/
+          # twine upload dist/*
