@@ -1,10 +1,8 @@
 name: Upload Python Package
 
 on:
-  push:
-    branches: "*"
-  # release:
-  #   types: [created]
+  release:
+    types: [created]
 
 jobs:
   deploy-linux:
@@ -85,9 +83,9 @@ jobs:
           name: wheelhouseLinux
       
       - name: Publish 
-        # env:
-        #   TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
-        #   TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+        env:
+          TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
+          TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
         run: |
           ls -ltrh wheelhouseMacOS/ wheelhouseLinux/
-          # twine upload dist/*
+          twine upload --skip-existing wheelhouseLinux/* wheelhouseMacOS/*
