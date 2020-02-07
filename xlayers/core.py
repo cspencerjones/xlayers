@@ -32,6 +32,34 @@ def _reshape_outputs(*args, shape = None):
 
 
 def layers_numpy(v_in, theta_in, thetalayers, mapfact, mapindex, cellindex, drf_finer):
+    """Convert from depth coordinates to other coordinates
+    
+    Parameters
+    ----------
+    v_in : array_like
+        Variable that will be remapped. 
+    theta_in : array_like
+        Variable that defines location of new coordinate system. 
+        For example, if you are remapping to temperature coordinates, this should be 
+        the temperature on the same grid points as the variable you wish to remap.
+    thetalayers : array_like
+        Vector of the values to use in the new coordinate system. 
+        For example, if you are remapping to temperature coordinates, this should be 
+        a vector of temperatures that defines the new coordinate system.
+    mapfact : array_like
+        Factor required by remapping code. Output from running fine.py.
+    mapindex : array_like
+        Index required by remapping code. Output from running fine.py.
+    cellindex : array_like
+        Index required by remapping code. Output from running fine.py.
+    drf_finer : array_like
+        Depth difference between refined cell edges. Output from running fine.py.
+        
+    Returns
+    -------
+    v_lay : array
+
+    """
     original_shape = v_in.shape
 
     v_out,theta_out = _reshape_inputs(v_in,theta_in)
