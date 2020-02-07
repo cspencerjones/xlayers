@@ -5,6 +5,9 @@
 .. image:: https://img.shields.io/conda/vn/conda-forge/xlayers.svg?style=for-the-badge
     :target: https://anaconda.org/conda-forge/xlayers
     :alt: Conda Version
+      
+.. image:: https://zenodo.org/badge/215552269.svg
+   :target: https://zenodo.org/badge/latestdoi/215552269
 
 
 xlayers: Python implementation of MITgcm's layer package
