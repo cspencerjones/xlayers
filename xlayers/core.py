@@ -58,6 +58,7 @@ def layers_numpy(v_in, theta_in, thetalayers, mapfact, mapindex, cellindex, drf_
     Returns
     -------
     v_lay : array
+        v_lay is an array of the thickness-weighted quantity in the new coordinate system. 
 
     """
     original_shape = v_in.shape
