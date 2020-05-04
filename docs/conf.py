@@ -30,6 +30,18 @@ author = 'C Spencer Jones'
 release = xlayers.__version__
 
 
+# mock fortran library so it compiles on read the docs
+from unittest.mock import MagicMock
+
+class Mock(MagicMock):
+    @classmethod
+    def __getattr__(cls, name):
+        return MagicMock()
+
+MOCK_MODULES = ['xlayers.finegrid','xlayers.ftype','xlayers.layers','xlayers.looplayers']
+sys.modules.update((mod_name, Mock()) for mod_name in MOCK_MODULES)
+
+
 # -- General configuration ---------------------------------------------------
 
 # Add any Sphinx extension module names here, as strings. They can be
