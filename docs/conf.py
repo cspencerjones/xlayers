@@ -30,17 +30,6 @@ author = 'C Spencer Jones'
 release = xlayers.__version__
 
 
-# mock fortran library so it compiles on read the docs
-from unittest.mock import MagicMock
-
-class Mock(MagicMock):
-    @classmethod
-    def __getattr__(cls, name):
-        return MagicMock()
-
-MOCK_MODULES = ['xlayers.finegrid','xlayers.ftype','xlayers.layers','xlayers.looplayers']
-sys.modules.update((mod_name, Mock()) for mod_name in MOCK_MODULES)
-
 
 # -- General configuration ---------------------------------------------------
 
@@ -51,6 +40,7 @@ extensions = [
     'sphinx.ext.mathjax', 'sphinx.ext.autodoc',
     'sphinx.ext.autosummary',
     'sphinxfortran.fortran_autodoc',
+    'sphinxfortran.fortran_domain',
     'sphinx.ext.extlinks',
     'sphinx.ext.viewcode',
     'sphinx.ext.intersphinx',
@@ -59,6 +49,11 @@ extensions = [
     'IPython.sphinxext.ipython_directive',
     'IPython.sphinxext.ipython_console_highlighting',
 ]
+
+fortran_ext = ['f']
+
+fortran_src = os.path.abspath('../xlayers/')
+
 
 # never execute notebooks: avoids lots of expensive imports on rtd
 # https://nbsphinx.readthedocs.io/en/0.2.14/never-execute.html
