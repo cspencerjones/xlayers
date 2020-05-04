@@ -38,6 +38,7 @@ release = xlayers.__version__
 extensions = [
     'sphinx.ext.mathjax', 'sphinx.ext.autodoc',
     'sphinx.ext.autosummary',
+    'sphinxfortran.fortran_autodoc',
     'sphinx.ext.extlinks',
     'sphinx.ext.viewcode',
     'sphinx.ext.intersphinx',
@@ -86,4 +87,3 @@ html_static_path = ['_static']
 
 autodoc_member_order = 'bysource'
 
-autodoc_mock_imports = ["fortran-compiler"]
