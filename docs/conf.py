@@ -60,4 +60,4 @@ html_static_path = ['_static']
 
 autodoc_member_order = 'bysource'
 
-autodoc_mock_imports = ["f90wrap"]
+autodoc_mock_imports = ["gnu95"]
