@@ -13,7 +13,7 @@
 import os
 import sys
 sys.path.append('../')
-import xlayers
+#import xlayers
 
 
 
@@ -27,7 +27,7 @@ copyright = '2020, C Spencer Jones'
 author = 'C Spencer Jones'
 
 # The full version, including alpha/beta/rc tags
-release = xlayers.__version__
+release = ''#xlayers.__version__
 
 
 
@@ -45,7 +45,7 @@ extensions = [
     'sphinx.ext.viewcode',
     'sphinx.ext.intersphinx',
     'numpydoc',
-    'nbsphinx',
+#    'nbsphinx',
     'IPython.sphinxext.ipython_directive',
     'IPython.sphinxext.ipython_console_highlighting',
 ]
