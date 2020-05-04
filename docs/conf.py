@@ -35,7 +35,33 @@ release = xlayers.__version__
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ['sphinx.ext.autodoc','numpydoc']
+extensions = [
+    'sphinx.ext.mathjax', 'sphinx.ext.autodoc',
+    'sphinx.ext.autosummary',
+    'sphinx.ext.extlinks',
+    'sphinx.ext.viewcode',
+    'sphinx.ext.intersphinx',
+    'numpydoc',
+    'nbsphinx',
+    'IPython.sphinxext.ipython_directive',
+    'IPython.sphinxext.ipython_console_highlighting',
+]
+
+# never execute notebooks: avoids lots of expensive imports on rtd
+# https://nbsphinx.readthedocs.io/en/0.2.14/never-execute.html
+# nbsphinx_execute = 'never'
+
+# give cells 10 minutes to run before timeout
+nbsphinx_timeout = 600
+
+# http://stackoverflow.com/questions/5599254/how-to-use-sphinxs-autodoc-to-document-a-classs-init-self-method
+def skip(app, what, name, obj, skip, options):
+    if name == "__init__":
+        return False
+    return skip
+
+def setup(app):
+    app.connect("autodoc-skip-member", skip)
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -60,4 +86,3 @@ html_static_path = ['_static']
 
 autodoc_member_order = 'bysource'
 
-autodoc_mock_imports = ["gnu95"]
