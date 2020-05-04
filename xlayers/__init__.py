@@ -4,3 +4,4 @@ del get_versions
 
 __all__ = ['core']
 from .core import layers_numpy
+from .core import layers_xarray

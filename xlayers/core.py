@@ -3,6 +3,7 @@ Numpy API for xlayers.
 """
 from functools import reduce
 import numpy as np
+import xarray as xr
 import xlayers.layers as layers
 
 def _prod(v):
@@ -84,3 +85,49 @@ def layers_numpy(v_in, theta_in, thetalayers, mapfact, mapindex, cellindex, drf_
     v_lay = np.squeeze(np.array(_reshape_outputs(VH2, shape=new_shape)))
     
     return v_lay
+
+
+def layers_xarray(data_in, theta_in, thetalayers, mapfact, mapindex, cellindex, drf_finer, lev_name, Tlev_name):
+    """Convert an xarray from depth coordinates to other coordinates
+    
+    Parameters
+    ----------
+    data_in : array_like
+        Variable that will be remapped. 
+    theta_in : array_like
+        Variable that defines location of new coordinate system. 
+        For example, if you are remapping to temperature coordinates, this should be 
+        the temperature on the same grid points as the variable you wish to remap.
+    thetalayers : array_like
+        Vector of the values to use in the new coordinate system. 
+        For example, if you are remapping to temperature coordinates, this should be 
+        a vector of temperatures that defines the new coordinate system.
+    mapfact : array_like
+        Factor required by remapping code. Output from running fine.py.
+    mapindex : array_like
+        Index required by remapping code. Output from running fine.py.
+    cellindex : array_like
+        Index required by remapping code. Output from running fine.py.
+    drf_finer : array_like
+        Depth difference between refined cell edges. Output from running fine.py.
+    lev_name : string
+        The name of the vertical coordinate in data_in and theta_in
+    Tlev_name : string
+        The name of the vertical coordinate in the output array
+        
+    Returns
+    -------
+    data_out : array
+        data_out is an array of the thickness-weighted quantity in the new coordinate system. 
+
+    """
+    data_out = xr.apply_ufunc(layers_numpy, data_in, theta_in,
+                       kwargs={'thetalayers':thetalayers,'mapfact':mapfact,
+                               'mapindex':mapindex,'cellindex':cellindex,
+                               'drf_finer':drf_finer},
+                       dask='parallelized', 
+                       input_core_dims=[[lev_name],[lev_name]], output_core_dims=[[Tlev_name]],
+                       output_dtypes=[float], output_sizes={Tlev_name:thetalayers.size}
+                       )
+    data_out = data_out.assign_coords({Tlev_name:thetalayers})
+    return data_out
