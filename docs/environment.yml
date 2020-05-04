@@ -1,4 +1,4 @@
- name: xlayers_env
+name: xlayers_env
 dependencies:
   - python=3.6
   - xarray
