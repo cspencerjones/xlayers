@@ -20,7 +20,14 @@
 # import os
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
+from __future__ import print_function
+import os
+import sys
+sourcepath=os.path.abspath(os.path.realpath(__file__))
+futilepath=os.path.dirname(os.path.dirname(sourcepath))
 
+print('File directory: ',sourcepath)
+print('Futile directory: ',futilepath)
 
 # -- General configuration ------------------------------------------------
 
@@ -36,9 +43,9 @@ extensions = ['sphinx.ext.autodoc',
               'sphinx.ext.napoleon',
               'sphinxfortran.fortran_domain',
               'sphinxfortran.fortran_autodoc']
-fortran_src = ['../xlayers/*.f']
-fortran_ext = ["*.f"]
-fortran_indent = 2
+fortran_src= [os.path.abspath(os.path.join(futilepath,'xlayers','finegrid.f')),
+              os.path.abspath(os.path.join(futilepath,'xlayers','layers.f'))]
+fortran_ext= ['f']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
