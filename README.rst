@@ -77,7 +77,7 @@ The first two inputs to `layers_xarray` should be on the same gridpoints. `data_
 
 Outputs
 -------
-The output of `layers_xarray` is *thickness weighted*, i.e. if the input variable is salinity, the output variable is the salinity in each layer *multiplied by the depth of the layer*. In order to get an output that has the same units as the input, divide by the thickness of the layer (which you can get by inputting an array of ones into `layers_xarray` instead of `data_in`. 
+The output of `layers_xarray` is *thickness weighted*, i.e. if the input variable is salinity, the output variable is the salinity in each layer *multiplied by the depth of the layer*. In order to get an output that has the same units as the input, divide by the thickness of the layer (which you can get by inputting an array of ones into `layers_xarray` instead of you input variable `data_in`). 
 
 
 Get in touch
