@@ -3,7 +3,6 @@ dependencies:
   - python=3.6
   - xarray
   - numpy>=1.16
-  - fortran-compiler
   - pytest
   - numpydoc
   - sphinx
