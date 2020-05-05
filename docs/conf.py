@@ -40,12 +40,10 @@ print('Futile directory: ',futilepath)
 # ones.
 extensions = ['sphinx.ext.autodoc',
               'sphinx.ext.mathjax',
-              'sphinx.ext.napoleon',
-              'sphinxfortran.fortran_domain',
-              'sphinxfortran.fortran_autodoc']
-fortran_src= [os.path.abspath(os.path.join(futilepath,'xlayers','finegrid.f')),
-              os.path.abspath(os.path.join(futilepath,'xlayers','layers.f'))]
-fortran_ext= ['f']
+              'sphinx.ext.napoleon']
+
+autodoc_mock_imports = ["fortran-compiler"]
+
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
