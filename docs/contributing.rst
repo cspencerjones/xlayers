@@ -21,6 +21,7 @@ v0.1
 ~~~~
 
 First release
+
 - Original code adapted from MITgcm code by Ryan Abernathey and Martin Losch
   By `C Spencer Jones <https://github.com/cspencerjones>`_.
 - Added packaging 
