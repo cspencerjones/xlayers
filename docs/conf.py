@@ -42,7 +42,7 @@ extensions = ['sphinx.ext.autodoc',
               'sphinx.ext.mathjax',
               'sphinx.ext.napoleon']
 
-autodoc_mock_imports = ["fortran-compiler"]
+autodoc_mock_imports = ["numpy"]
 
 
 # Add any paths that contain templates here, relative to this directory.
