@@ -5,6 +5,7 @@ from functools import reduce
 import numpy as np
 import xarray as xr
 import xlayers.layers as layers
+from xlayers import finegrid
 
 def _prod(v):
     return reduce(lambda x, y: x*y, v)
@@ -30,6 +31,12 @@ def _reshape_outputs(*args, shape = None):
     else:
         target_shape = shape
     return [np.reshape(a, target_shape) for a in args]
+
+def layers_apply(data_in, dens_in, denslayers, fine_drf,fine_drc, fine_fact, lev_name, Tlev_name):
+    #Then calculate the height of the depth cells in a new rebinned geometry, where there are ten smaller bins for each initial bin
+    drf_finer, mapindex, mapfact, cellindex = finegrid.finegrid(np.squeeze(fine_drf),np.squeeze(fine_drc),[fine_drf.size,fine_fact])
+    data_out=layers_xarray(data_in, dens_in, denslayers, mapfact, mapindex, cellindex, drf_finer, lev_name, Tlev_name)
+    return data_out
 
 
 def layers_xarray(data_in, theta_in, thetalayers, mapfact, mapindex, cellindex, drf_finer, lev_name, Tlev_name):
