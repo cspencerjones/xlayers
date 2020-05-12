@@ -32,15 +32,46 @@ def _reshape_outputs(*args, shape = None):
         target_shape = shape
     return [np.reshape(a, target_shape) for a in args]
 
-def layers_apply(data_in, dens_in, denslayers, fine_drf,fine_drc, fine_fact, lev_name, Tlev_name):
-    #Then calculate the height of the depth cells in a new rebinned geometry, where there are ten smaller bins for each initial bin
+def layers_apply(data_in, theta_in, thetalayers, fine_drf,fine_drc, fine_fact=10, lev_name='lev', Tlev_name='Tlev'):
+    """Convert an xarray from depth coordinates to other coordinates
+    Parameters
+    ----------
+    data_in : array_like
+        Variable that will be remapped. 
+    theta_in : array_like
+        Variable that defines location of new coordinate system. 
+        For example, if you are remapping to temperature coordinates, this should be 
+        the temperature on the same grid points as the variable you wish to remap.
+    thetalayers : array_like
+        Vector of the values to use in the new coordinate system. 
+        For example, if you are remapping to temperature coordinates, this should be 
+        a vector of temperatures that defines the new coordinate system.
+    fine_drf : array_like
+        Depth of vertical cells in original coordinate system.
+    fine_drc : array_like
+        Distance between cell centers in original coordinate system. 
+        Must be one point longer than fine_drf. The first value should be the distance
+        between the first cell center and the surface. The last value should be the
+        distance between the last cell center and the bottom of the domain. 
+    fine_fact : integer
+        Number ofr sub-bins chosen in the vertical. Recommended 10. 
+    lev_name : string
+        The name of the vertical coordinate in data_in and theta_in
+    Tlev_name : string
+        The name of the vertical coordinate in the output array
+        
+    Returns
+    -------
+    data_out : array
+        data_out is an array of the thickness-weighted quantity in the new coordinate system.
+    """
     drf_finer, mapindex, mapfact, cellindex = finegrid.finegrid(np.squeeze(fine_drf),np.squeeze(fine_drc),[fine_drf.size,fine_fact])
-    data_out=layers_xarray(data_in, dens_in, denslayers, mapfact, mapindex, cellindex, drf_finer, lev_name, Tlev_name)
+    data_out=layers_xarray(data_in, theta_in, thetalayers, mapfact, mapindex, cellindex, drf_finer, lev_name, Tlev_name)
     return data_out
 
 
 def layers_xarray(data_in, theta_in, thetalayers, mapfact, mapindex, cellindex, drf_finer, lev_name, Tlev_name):
-    """Convert an xarray from depth coordinates to other coordinates
+    """Convert an xarray from depth coordinates to other coordinates (needs binning inputs)
     
     Parameters
     ----------
