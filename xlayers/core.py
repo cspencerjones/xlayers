@@ -166,7 +166,7 @@ def layers_numpy(v_in, theta_in, thetalayers, mapfact, mapindex, cellindex, drf_
     new_shape = list(original_shape)
     new_shape[-1] = thetalayers.size
     new_shape = tuple(new_shape)
-    v_lay = np.squeeze(np.array(_reshape_outputs(VH2, shape=new_shape)))
+    v_lay = np.squeeze(np.array(_reshape_outputs(VH2, shape=new_shape)),axis=0)
     
     return v_lay
 
