@@ -13,6 +13,10 @@
 xlayers: Python implementation of MITgcm's layer package
 ========================================================
 
+.. _here: https://xgcm.readthedocs.io/en/latest/transform.html
+
+We recommend that you also look at the xgcm `transform` function (see docs here_), which is often a useful alternative to this package.
+
 xlayers allows you to transform your data from a regular vertical grid (like depth) to a vertical grid defined based on contours of some variable (like density). xlayers uses FORTRAN code from the layers package of the MITgcm, which was written by Ryan Abernathey. 
 
 .. _example: https://github.com/cspencerjones/xlayers/blob/master/notebooks/Test_Packaging.ipynb
